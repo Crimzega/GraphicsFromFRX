@@ -1,1 +1,9 @@
+bin/
+obj/
+VBto-*/
+~VBto Converter~.Log
+*.bas
+*.frm
+*.cls
+*.vbp
 *.vbw
