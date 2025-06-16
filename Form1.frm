@@ -67,7 +67,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 '
-' Copyright © 1997-1999 Brad Martinez, http://www.mvps.org
+' Copyright ï¿½ 1997-1999 Brad Martinez, http://www.mvps.org
 '
 ' Demonstrates how to extract any and all graphics in VB FRX, CTX,
 ' DSX, DOX, and PGX binary files, display them, and save them to file.
@@ -112,7 +112,7 @@ Private Sub Form_Resize()
   Picture1.Width = (ScaleWidth - Picture1.Left) - (cmdOpen.Height * 0.5)
   Picture1.Height = (ScaleHeight - Picture1.Top) - (cmdOpen.Height * 0.5)
 
-Out:
+  Out:
 End Sub
 
 Private Sub List1_Click()

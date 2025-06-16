@@ -1,83 +1,86 @@
+using System;
+using System.Collections;
+using System.Drawing;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading;
 
-namespace GraphicsFromFrx{
+namespace GraphicsFromFRX{
 
-	class FrxModule{
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+	internal struct SHFILEINFO{
 
-		public enum CBoolean{
+		public IntPtr hIcon;
+		public int iIcon;
+		public uint dwFileAttributes;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+		public string szDisplayName;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+		public string szTypeName;
 
-			CFalse = 0,
-			CTrue
+	}
 
+	public enum PictureTypes{
+
+		None = 0,
+		BMP,
+		DIB,
+		GIF,
+		JPEG,
+		WMF,
+		EMF,
+		IRO,
+		CUR
+
+	}
+
+	internal static class PictureInfo{
+
+		public static string GetExtension(this PictureTypes self){
+			switch(self){
+				case PictureTypes.None:
+					return "txt";
+				case PictureTypes.DIB:
+					return "bmp";
+				default:
+					return self.ToString().ToLowerInvariant();
+			}
 		}
 
-		public struct FRXITEMHDRW{
-			public uint dwSizeText;
+		public static string GetTypeName(this PictureTypes self){
+			switch(self){
+				case PictureTypes.BMP:
+				case PictureTypes.DIB:
+					return "Bitmap Image";
+				case PictureTypes.GIF:
+					return "GIF Image";
+				case PictureTypes.JPEG:
+					return "JPEG Image";
+				case PictureTypes.WMF:
+					return "Metatfile";
+				case PictureTypes.EMF:
+					return "Enhanced Metatfile";
+				case PictureTypes.IRO:
+					return "Icon File";
+				case PictureTypes.CUR:
+					return "Cursor File";
+				default:
+					return "Binary Data";
+			}
 		}
 
-		public struct FRXITEMHDR{
-			public uint dwSizeImageEx;
-			public uint dwKey;
-			public uint dwSizeImage;
+	}
+
+	internal static class FrxModule{
+
+		public static Image PictureFromBytes(byte[] data){
+			if (data == null || data.Length == 0) return null;
+			MemoryStream stream = new MemoryStream(data);
+			Image result = Image.FromStream(stream);
+			stream.Close();
+			return result;
 		}
-
-		public struct FRXITEMHDREX{
-			public uint sqSizeImageEx;
-			public GUID clsid;
-			public uint dwKey;
-			public uint dwSizeImage;
-		}
-
-		public struct FRXITEMHDRDW{
-			public uint dwSizeImage;
-		}
-
-		[StructLayout(LayoutKind.Sequential, Pack = 1)]
-		public struct GUID{
-			public uint dwData1;
-			public ushort wData2;
-			public ushort wData3;
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-			public byte[] abData4;
-		}
-
-		public struct METAHEADER{
-			public ushort mtType;
-			public ushort mtHeaderSize;
-			public ushort mtVersion;
-			public uint mtSize;
-			public ushort mtNoObjects;
-			public uint mtMaxRecord;
-			public ushort mtNoParameters;
-		}
-
-		[StructLayout(LayoutKind.Sequential)]
-		public struct NEWHEADER{
-			public short Reserved;
-			public short ResType;
-			public short ResCount;
-		}
-
-		[DllImport("ole32.dll")]
-		public static int CreateStreamOnHGlobal(IntPtr hGlobal, CBoolean fDeleteOnReleasem);
-
-		public const int RES_ICON = 1;
-		public const int RES_CURSOR = 2;
-		public const int SIZEOFDIRENTRY = 16;
-		public const int SIZEOFBOTMAPINFOHEADER = 40;
-		public const int S_OK = 0;
-		public const uint FIH_Key = 0x746C;
-		public const uint IMGSIG_CUR = 0x20000u;
-		public const uint IMGSIG_GIF = 0x464947u;
-		public const uint IMGSIG_ICO = 0x10000u;
-		public const uint IMGSIG_WMF_APM = 0x9AC6CDD7u;
-		public const ushort IMGSIG_BMPDIB = (ushort)0x4D42u;
-		public const ushort IMGTERM_GIF = (ushort)0x3Bu;
-		public const ushort IMGSIG_JPG = (ushort)0xD8FFu;
-		public const ushort IMGTERM_JPG = (ushort)0xD9FFu;
-
-		public static string GetStrFromBufferA(string szA) =>
-			szA.Contains('\x00')? szA.Substring(0, szA.IndexOf('\x00')): szA;
 
 	}
 

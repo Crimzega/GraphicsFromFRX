@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 '
-' Copyright © 1997-1999 Brad Martinez, http://www.mvps.org
+' Copyright ï¿½ 1997-1999 Brad Martinez, http://www.mvps.org
 '
 Public Enum FrxStructTypes
   fstUnknown = 0
@@ -148,9 +148,9 @@ Private Function LoadItems(sPath As String) As Boolean
     Call LoadBlob(VarPtr(abFile(dwFileOffset - cbBlob)), cbBlob, dwFileOffset - cbBlob)
   End If
   
-Out:
-  With Err
-    If .Number Then Call .Raise(.Number, "cFrxFile.LoadItems", .Description)
+  Out:
+    With Err
+      If .Number Then Call .Raise(.Number, "cFrxFile.LoadItems", .Description)
   End With
   
 End Function
@@ -210,7 +210,7 @@ Private Function GetFrxItemHeaderInfo(abFrx() As Byte, _
   
   GetFrxItemHeaderInfo = (fihi.dwStructType <> fstUnknown)
 
-Out:
+  Out:
 End Function
 
 Private Function GetPictureType(abPict() As Byte, cbPic As Long) As PictureTypes

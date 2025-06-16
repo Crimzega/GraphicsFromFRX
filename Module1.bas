@@ -1,7 +1,7 @@
 Attribute VB_Name = "Module1"
 Option Explicit
 '
-' Copyright © 1997-1999 Brad Martinez, http://www.mvps.org
+' Copyright ï¿½ 1997-1999 Brad Martinez, http://www.mvps.org
 '
 ' ============================================================================
 ' VB (and COM) recognize the following graphic files: BMP, DIB, GIF, JPG, WMF, EMF, ICO, CUR
@@ -406,8 +406,8 @@ Public Function PictureFromBits(abPic() As Byte) As IPicture  ' not a StdPicture
       End If   ' CreateStreamOnHGlobal
     End If   ' lpMem
     
-'    Call GlobalFree(hMem)
+  '  Call GlobalFree(hMem)
   End If   ' hMem
       
-Out:
+  Out:
 End Function

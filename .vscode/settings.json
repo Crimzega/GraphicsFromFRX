@@ -3,7 +3,16 @@
 		"editor.formatOnPaste": false,
 		"editor.formatOnSave": false
 	},
+	"[xml]": {
+		"editor.formatOnPaste": false,
+		"editor.formatOnSave": false
+	},
 	"editor.insertSpaces": false,
 	"editor.tabSize": 4,
+	"files.associations": {
+		"*.frm": "vb",
+		"*.cls": "vb",
+		"*.bas": "vb"
+	},
 	"files.eol": "\n"
 }
